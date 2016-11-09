@@ -60,7 +60,7 @@ def play_game(name):
     # This gets the move from a player when they push a button.
     player_move = rps.get_player_move()
 
-    # Use the random library to chose a random move for the player.
+    # Use the random library to choose a random move for the player.
 
     # Use if statements to check who won. Set who_won equal to 'Computer', 'Player', or 'Tie'
     who_won = ""

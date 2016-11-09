@@ -1,0 +1,9 @@
+1. Check is user wants directions
+	YES: print instructions
+	NO:  Don't print anything
+2.
+
+Jacob: Evens
+Zack:  Odds
+Phone: 970-433-3773
+Email: Zackaryj@rams.colostate.edu
