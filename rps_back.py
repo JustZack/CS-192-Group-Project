@@ -25,7 +25,10 @@ def instructions(response):
 def check_name(name):
 
     error = "Somethings wrong"
-
+    if(name[0] == name[0].upper() && (name.len() > 9) && name.index(' ') == -1):
+        return name
+    else:
+        rps.quit_game("Name is invalid")
     if len(name) > 30:
         rps.quit_game(error)
 
@@ -61,14 +64,15 @@ def play_game(name):
     player_move = rps.get_player_move()
 
     # Use the random library to choose a random move for the player.
-
+    rand = random.random * 3
     # Use if statements to check who won. Set who_won equal to 'Computer', 'Player', or 'Tie'
+    if()
     who_won = ""
 
     # After determines who won, build a results string.
     # The next 3 lines partially builds this string. Complete for computer, add for tie, and add line for winner
     results = "Player played " + player_move
-    results += "\n"
+    results += "\n"             
     results += "Computer played "
 
     # Use rps.display_results to display the results string for the game.
@@ -79,20 +83,19 @@ def play_game(name):
 
 
 def play_match():
-
+    
     # Call rps.ask_instructions() to see if player wants instructions
-
+    rps.ask_instructions()
 
     # Call rps.get_name() to get a string of the players name
     # Be sure to save return value, i.e. player_name = rps.get_name()
-    player_name = ""
+    player_name = rps.get_name()
 
 
     # Call rps.get_num_play to get the number of games to play
     # Be sure to save return value, i.e. num_times = rps.get_num_play()
-    num_times = 0
+    num_times = rps.get_num_play()
 
-    
     # Use these variables to keep track of who won
     ties = 0
     player_wins = 0
@@ -101,7 +104,7 @@ def play_match():
 
     # Use a while or for loop to call play_game the correct amount of times
     count = 0
-    while count < num_times:
+    for count in range(0, num_times):
         game_winner = play_game(player_name)
         # Now use an if statement to increment total for winner
         # i.e. will increment either ties, player_wins, or computer_winds
@@ -115,7 +118,7 @@ def play_match():
 
 # Create a graph as we did in the previous lab
 def make_graph(name, player_wins, comp_wins, ties):
-    print "Not implemented yet"
+    print ("Not implemented yet")
 
 
 

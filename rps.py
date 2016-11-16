@@ -4,10 +4,10 @@ import sys
 from pygame.locals import *
 import pygame, string
 from threading import Thread
-import rps_back 
+import rps_back
 
 
-# eztext taken from: http://www.pygame.org/project-EzText-920-.html 
+# eztext taken from: http://www.pygame.org/project-EzText-920-.html
 class ConfigError(KeyError): pass
 
 class Config:
@@ -61,7 +61,7 @@ class Input:
                 elif event.key == K_SPACE: self.value += ' '
                 if not self.shifted:
                     if event.key == K_a and 'a' in self.restricted: self.value += 'a'
-		    elif event.key == K_RETURN: return True
+                    elif event.key == K_RETURN: return True
                     elif event.key == K_b and 'b' in self.restricted: self.value += 'b'
                     elif event.key == K_c and 'c' in self.restricted: self.value += 'c'
                     elif event.key == K_d and 'd' in self.restricted: self.value += 'd'
@@ -157,8 +157,9 @@ class Input:
                     elif event.key == K_PERIOD and '>' in self.restricted: self.value += '>'
                     elif event.key == K_SLASH and '?' in self.restricted: self.value += '?'
 
-        if len(self.value) > self.maxlength and self.maxlength >= 0: self.value = self.value[:-1]
-	return False
+        if len(self.value) > self.maxlength and self.maxlength >= 0:
+            self.value = self.value[:-1]
+        return False
 
 
 
@@ -182,7 +183,7 @@ class Input:
 class Option:
 
     hovered = False
-    
+
     def __init__(self, text, pos, image_name=None):
         self.text = text
         self.pos = pos
@@ -201,23 +202,23 @@ class Option:
         self.img = pygame.image.load(self.image_name)
         self.set_rect()
         self.draw()
-            
+
     def draw(self):
         if self.img is None:
             self.set_rend()
             screen.blit(self.rend, self.rect)
         else:
             screen.blit(self.img, self.rect)
-        
+
     def set_rend(self):
         self.rend = menu_font.render(self.text, True, self.get_color())
-        
+
     def get_color(self):
         if self.hovered:
             return (0, 0, 0)
         else:
             return (100, 100, 100)
-        
+
     def set_rect(self):
         if self.img is None:
             self.set_rend()
@@ -228,8 +229,7 @@ class Option:
 
 
 class OnScreen:
-    def __init__(self):
-	self.items = {}
+    def __init__(self): self.items = {}
 
 # Input section
 def get_name():
@@ -240,7 +240,7 @@ def get_num_play():
     return get_input("How many games to play: ", 'num_games', rps_back.check_times_to_play)
 
 def ask_instructions():
-    return get_input("Would you like instructions (yes/no): ", 'instructions', rps_back.instructions) 
+    return get_input("Would you like instructions (yes/no): ", 'instructions', rps_back.instructions)
 
 def get_input(prompt_text, item_key, call_back=None):
     txtbx = Input(maxlength=45, color=(0,0,0), prompt=prompt_text)
@@ -279,22 +279,22 @@ def print_instructions(instructions):
     while True:
         pygame.event.pump()
         screen.fill((242, 209, 133))
-	
-	myfont = pygame.font.SysFont("Comic Sans MS", 22)
-	words = instructions.split(' ')
-	y = 15
+
+        myfont = pygame.font.SysFont("Comic Sans MS", 22)
+        words = instructions.split(' ')
+        y = 15
         line = ''
         for word in words:
             if len(line) < 55:
                 line += word + " "
             else:
-	        label = myfont.render(line,True,(0,0,0))
-	        screen.blit(label, (15,y))
-	        y += 25
+                label = myfont.render(line,True,(0,0,0))
+                screen.blit(label, (15,y))
+                y += 25
                 line = word + " "
 
-	label = myfont.render(line,True,(0,0,0))
-	screen.blit(label, (15,y))
+        label = myfont.render(line,True,(0,0,0))
+        screen.blit(label, (15,y))
 
         for option in options:
             if option.rect.collidepoint(pygame.mouse.get_pos()):
@@ -303,20 +303,20 @@ def print_instructions(instructions):
                 option.hovered = False
 
 
-	ev = pygame.event.get()
-	clicked_option = []
-	for event in ev:
-	    if  event.type == pygame.MOUSEBUTTONUP:
-		pos = pygame.mouse.get_pos()
-		clicked_option = [o for o in options if o.rect.collidepoint(pos) ]
-	if len(clicked_option) > 0:
+        ev = pygame.event.get()
+        clicked_option = []
+        for event in ev:
+            if  event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                clicked_option = [o for o in options if o.rect.collidepoint(pos) ]
+        if len(clicked_option) > 0:
             if clicked_option[0].text == "Quit":
                 sys.exit(0)
             elif clicked_option[0].text == "OK":
                 return
 
-	for option in options:
-	    option.draw()
+        for option in options:
+            option.draw()
         pygame.display.update()
 
 
@@ -330,21 +330,21 @@ def get_player_move():
 
 
 
-	myfont = pygame.font.SysFont("Comic Sans MS", 22)
+        myfont = pygame.font.SysFont("Comic Sans MS", 22)
 
         text = "Click on one of the three pictures for your move"
-	label = myfont.render(text,True,(0,0,0))
-	screen.blit(label, (15,5))
+        label = myfont.render(text,True,(0,0,0))
+        screen.blit(label, (15,5))
 
-	
-	if not onscreen.items['display_text'] == "temp":
-	    myfont = pygame.font.SysFont("Comic Sans MS", 22)
-	    text_line = onscreen.items['display_text'].split('\n')
-	    y = 110
-	    for line in text_line:
-		label = myfont.render(line,True,(0,0,0))
-		screen.blit(label, (250,y))
-		y += 50
+
+        if not onscreen.items['display_text'] == "temp":
+            myfont = pygame.font.SysFont("Comic Sans MS", 22)
+            text_line = onscreen.items['display_text'].split('\n')
+            y = 110
+            for line in text_line:
+                label = myfont.render(line,True,(0,0,0))
+                screen.blit(label, (250,y))
+                y += 50
 
         for option in options:
             if option.rect.collidepoint(pygame.mouse.get_pos()):
@@ -352,20 +352,20 @@ def get_player_move():
             else:
                 option.hovered = False
 
-	ev = pygame.event.get()
-	clicked_option = []
-	for event in ev:
-	    if  event.type == pygame.MOUSEBUTTONUP:
-		pos = pygame.mouse.get_pos()
-		clicked_option = [o for o in options if o.rect.collidepoint(pos) ]
-	if len(clicked_option) > 0:
+        ev = pygame.event.get()
+        clicked_option = []
+        for event in ev:
+            if  event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                clicked_option = [o for o in options if o.rect.collidepoint(pos) ]
+        if len(clicked_option) > 0:
             if clicked_option[0].text == "Quit":
                 sys.exit(0)
-	    return clicked_option[0].text
+            return clicked_option[0].text
 
 
-	for option in options:
-	    option.draw()
+        for option in options:
+            option.draw()
         pygame.display.update()
 
 # Various game modes could be added here, else it is just a start menu.
@@ -392,8 +392,8 @@ def get_player_mode():
 
 # Exiting on errors.
 def quit_game(error_message):
-    print "Program aborted.."
-    print error_message
+    print ("Program aborted..")
+    print (error_message)
     sys.exit(1)
 
 
@@ -405,7 +405,7 @@ def play_comp_game():
 # Set the result string so it may be displayed during get_move
 def display_results(result_string):
     onscreen.items['display_text'] = result_string
-    
+
 
 # This shows the start menu then kicks of the game. game_mode was originally used for
 # the possible inclusion of a human v. human game mode.
@@ -414,15 +414,15 @@ def main():
     play_comp_game()
 
 
-# These are global variables / statements. They are necessary because there is no way to keep 
+# These are global variables / statements. They are necessary because there is no way to keep
 # these variable is scope when communicating with rps_back.py
 pygame.init()
 screen = pygame.display.set_mode((480, 320))
 menu_font = pygame.font.Font(None, 40)
-clock = pygame.time.Clock()   
+clock = pygame.time.Clock()
 onscreen = OnScreen()
 onscreen.items["display_text"] = "temp"
-    
+
 # The canonical starting of main
 if __name__ == "__main__":
     main()
