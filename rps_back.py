@@ -25,8 +25,16 @@ def instructions(response):
 def check_name(name):
 
     error = "Somethings wrong"
-    if(name[0] == name[0].upper() && (name.len() > 9) && name.index(' ') == -1):
+    if(name[0] == name[0].upper() && (name.len() > 1) && (name.len() < 10) && name.index(' ') == -1):
         return name
+    else if(name[0] == name[0].lower()):
+        rps.quit_game("Name does not start with an uppercase letter!");
+    else if(name.len() <= 1):
+        rps.quit_game("Name is too short!");        
+    else if(name.len() >= 10):
+        rps.quit_game("Name is too long!");
+    else if(name.index(' ') != -1):
+        rps.quit_game("Name is more than one name!");
     else:
         rps.quit_game("Name is invalid")
     if len(name) > 30:
