@@ -2,16 +2,20 @@ import random
 import matplotlib.pyplot as plt
 import rps
 
+def instructions(response): 
 
-def instructions(response):
     # Add to instruction_string so that it contains information on
     # how to play rock-paper-scissors
-    instruction_string = ""
+    instruction_string = "Choose rock, paper, or scissors from the buttons. "
+    instruction_string +="The computer will then choose a move. "
+    instruction_string += "Rock beats scissors, scissors beats paper, and paper beats rock."
 
     # Use a string method to make response all one case
+    response = response.lower()
 
     # Use an if statement to check if the response is "yes"
-    
+    if response == "yes":
+	    rps.print_instructions(instruction_string)
     # If the user does want instructions pass instruction_string to
     # rps.print_instructions
 
@@ -55,7 +59,10 @@ def check_times_to_play(num):
     error = "Number is not correct"
 
     # Check that 'num' meets the requirements above.
-
+    if int(num)>2 and int(num)<21:
+	    return num
+    else: 
+	    rps.quit_game(error)
     # If 'num' does not meet requirements call rps.quit_game with an error 
     # message (the variable 'error.')
     # Note: use function int, to convert num to integer when using it to compare to another integer, i.e. int(num)
@@ -91,9 +98,9 @@ def play_game(name):
 
 
 def play_match():
-    
-    # Call rps.ask_instructions() to see if player wants instructions
     rps.ask_instructions()
+    # Call rps.ask_instructions() to see if player wants instructions
+
 
     # Call rps.get_name() to get a string of the players name
     # Be sure to save return value, i.e. player_name = rps.get_name()
@@ -104,6 +111,7 @@ def play_match():
     # Be sure to save return value, i.e. num_times = rps.get_num_play()
     num_times = rps.get_num_play()
 
+    
     # Use these variables to keep track of who won
     ties = 0
     player_wins = 0
@@ -112,10 +120,17 @@ def play_match():
 
     # Use a while or for loop to call play_game the correct amount of times
     count = 0
-    for count in range(0, num_times):
+    while count < num_times:
         game_winner = play_game(player_name)
+	if(who_won == "Player"):
+	    player_wins = player_wins + 1
+	elif(who_won == "Computer"):
+	    computer_wins =  computer_wins + 1
+	else:
+	    ties = ties + 1
+
         # Now use an if statement to increment total for winner
-        # i.e. will increment either ties, player_wins, or computer_winds
+        # i.e. will increment either ties, player_wins, or computer_wins
         count = count + 1
 
     # Call make_graph using the variables for win counts above.
