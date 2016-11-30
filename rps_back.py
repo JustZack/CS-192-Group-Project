@@ -29,15 +29,15 @@ def instructions(response):
 def check_name(name):
 
     error = "Somethings wrong"
-    if(name[0] == name[0].upper() && (name.len() > 1) && (name.len() < 10) && name.index(' ') == -1):
+    if(name[0] == name[0].upper() and (len(name) > 1) and (len(name) < 10) and (name.find(' ') == -1)):
         return name
-    else if(name[0] == name[0].lower()):
+    elif(name[0] == name[0].lower()):
         rps.quit_game("Name does not start with an uppercase letter!");
-    else if(name.len() <= 1):
+    elif(len(name) <= 1):
         rps.quit_game("Name is too short!");        
-    else if(name.len() >= 10):
+    elif(len(name) >= 10):
         rps.quit_game("Name is too long!");
-    else if(name.index(' ') != -1):
+    elif(name.find(' ') != -1):
         rps.quit_game("Name is more than one name!");
     else:
         rps.quit_game("Name is invalid")
@@ -48,8 +48,6 @@ def check_name(name):
     # any condition call rps.quit_game with an appropriate error message.
 
     # return the variable name once have checked all name requirements
-
-
 
 
 
@@ -69,33 +67,44 @@ def check_times_to_play(num):
 
     # return the variable num once have checked requirements
 
-
-
-
-
 def play_game(name):
     
     # This gets the move from a player when they push a button.
     player_move = rps.get_player_move()
 
     # Use the random library to choose a random move for the player.
-    rand = random.random * 3
+    rand = randint(0,3)
+    if(rand == 0):
+        rand = "Rock"
+    elif(rand == 1):
+        rand = "Paper"
+    elif(rand == 2):
+        rand = "Scissors"
     # Use if statements to check who won. Set who_won equal to 'Computer', 'Player', or 'Tie'
-    if()
     who_won = ""
-
+    if(player_move == "Rock" and rand == "Scissors" or player_move == "Paper" and rand == "Rock" or player_move == "Scissors" and rand == "Paper"):
+        who_won = "Player"   
+    elif(rand == "Rock" and player_move == "Scissors" or rand == "Paper" and player_move == "Rock" or rand == "Scissors" and player_move == "Paper"):
+        who_won = "Computer"
+    elif(player_move == rand):
+        who_won = "Tie"
+    else:
+        who_won = "Error"
     # After determines who won, build a results string.
     # The next 3 lines partially builds this string. Complete for computer, add for tie, and add line for winner
     results = "Player played " + player_move
     results += "\n"             
-    results += "Computer played "
+    results += "Computer played " + rand
+    if(who_won != "Tie"):
+        results += "\n " + who_won + " won!"
+    else:
+        results += "\n It was a tie!"
 
     # Use rps.display_results to display the results string for the game.
-
-
+    rps.display_results(results)
+    
     # return the variable who_won
-  
-
+    return who_won
 
 def play_match():
     rps.ask_instructions()
