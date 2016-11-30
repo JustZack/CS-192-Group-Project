@@ -66,7 +66,6 @@ def check_times_to_play(num):
     # Note: use function int, to convert num to integer when using it to compare to another integer, i.e. int(num)
 
     # return the variable num once have checked requirements
-
 def play_game(name):
     
     # This gets the move from a player when they push a button.
